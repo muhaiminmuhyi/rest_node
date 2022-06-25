@@ -2,6 +2,7 @@ const config = require('../config/database');
 const mysql = require('mysql');
 const pool = mysql.createPool(config);
 
+
 pool.on('error',(err)=>{
     console.error(err)
 });
@@ -16,11 +17,7 @@ module.exports = {
                 [id],
                 function (error, results) {
                     if(error) throw error;
-                    res.send({
-                        success: true,
-                        message: 'Data Berhasil Di Ambil',
-                        data: results
-                    });
+                    res.end(JSON.stringify(results))
                 });
                 connection.release();
         })
