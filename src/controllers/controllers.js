@@ -21,5 +21,25 @@ module.exports = {
                 });
                 connection.release();
         })
+    },
+    addPacar(req, res){
+        let data = {
+            id_pacar : req.body.id_pacar,
+            nama_pacar : req.body.nama_pacar
+        }
+        pool.getConnection(function(err, connection){
+            if(err) throw err;
+            connection.query(
+                `INSERT INTO tb_pacar SET ?;`,
+                [data],
+                function(error, results){
+                    if(error) throw error;
+                    res.send({
+                        success: true,
+                        message: 'Berhasil Di tambahkan'
+                    });
+                });
+            connection.release();
+        })
     }
 }
